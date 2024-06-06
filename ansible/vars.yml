@@ -1,0 +1,6 @@
+java_jar_url: https://download.oracle.com/java/22/latest/jdk-22_linux-aarch64_bin.rpm
+java_gpg_sig: https://linux.oracle.com/security/gpg/
+java_install: jdk-22_linux-aarch64_bin.rpm
+minecraft_server_url: "https://piston-data.mojang.com/v1/objects/145ff0858209bcfc164859ba735d4199aafa1eea/server.jar"
+minecraft_server_jar: "server.jar"
+minecraft_install_dir: "/opt/minecraft"

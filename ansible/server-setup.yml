@@ -1,0 +1,56 @@
+---
+- name: Minecraft Server Installation
+  hosts: minecraft
+  gather_facts: no
+  become: true
+  become_method: sudo
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: install python
+      raw: sudo dnf install python3
+
+    - name: update dnf
+      raw: sudo dnf update -y
+
+    - name: get latest version of java
+      get_url:
+        url: "{{ java_jar_url }}"
+        dest: "/tmp/{{ java_install }}"
+
+    - name: install java
+      dnf:
+        name: "/tmp/{{ java_install }}"
+        state: present
+        disable_gpg_check: yes
+
+    - name: create minecraft directory
+      file:
+        path: "{{ minecraft_install_dir }}/server"
+        state: directory
+
+    - name: get latest version of minecraft server
+      get_url:
+        url: "{{ minecraft_server_url }}"
+        dest: "{{ minecraft_install_dir }}/server/server.jar"
+
+    - name: accept EULA
+      copy:
+        content: "eula=true"
+        dest: "{{ minecraft_install_dir }}/server/eula.txt"
+
+    - name: create systemd service file
+      copy:
+        src: systemctl_content.txt
+        dest: /etc/systemd/system/minecraft.service
+
+    - name: reload systemd
+      command: systemctl daemon-reload
+
+    - name: enable minecraft serivce
+      command: systemctl enable minecraft.service
+
+    - name: start minecraft service
+      command: systemctl start minecraft.service

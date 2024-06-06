@@ -1,0 +1,11 @@
+[Unit]
+Description=Minecraft Server
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/opt/minecraft/server
+ExecStart=sudo java -Xmx1024M -Xms1024M -jar server.jar nogui
+ExecStop=sudo minecraft stop "stop^M"
+
+[Install]
+WantedBy=multi-user.target
