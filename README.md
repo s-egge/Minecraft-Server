@@ -33,10 +33,11 @@ If you haven't already, configure your AWS credentials. You can run `configure a
   - Move the private key to the ansible folder so that it can be used to SSH into the instance. I am also giving it the `.pem` extension because it wouldn't work for me without that
     - `mv minecraft_server_key ansible/minecraft_server_key.pem`
 
-- Navigate to the terraform directory
+- Navigate to the terraform directory and run commands to set up the EC2 instance on AWS
   - `cd terraform`
   - `terraform init`
   - `terraform apply -auto-approve`
+    
 - Navigate back to the root
 
   - `cd ..`
